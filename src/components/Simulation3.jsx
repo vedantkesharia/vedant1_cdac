@@ -95,7 +95,7 @@ const Simulation3 = () => {
           marginBottom: '15px',
         }}
       >
-        <CardContent sx={{ marginTop: '20px', marginLeft: '20px' }}>
+        <CardContent sx={{ marginTop: '20px', marginLeft: '25px' }}>
           <Typography variant="body2">
             <div className="dicdediv">
               <div className="dice" ref={diceRef}>
@@ -125,7 +125,7 @@ const Simulation3 = () => {
 
       <div className="dice-simulation">
         <div className="input-container">
-          <label style={{ margin: '10px 10px 10px 85px', border: '1px solid black', padding: '15px' }}>
+          <label style={{ margin: '10px 10px 10px 90px', border: '1px solid black', padding: '15px' }}>
             Number of Rolls: {numRolls}
           </label>
         </div>
