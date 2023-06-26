@@ -125,8 +125,8 @@ const Simulation3 = () => {
 
       <div className="dice-simulation">
         <div className="input-container">
-          <label style={{ margin: '10px 10px 10px 90px', border: '1px solid black', padding: '15px' }}>
-            Number of Rolls: {numRolls}
+          <label style={{ margin: '10px 10px 10px 85px', border: '1px solid black', padding: '15px',fontFamily:'Baloo Bhai 2',fontWeight:'bold' }}>
+            Number of Rolls : {numRolls}
           </label>
         </div>
         <div className="roll-buttons">
