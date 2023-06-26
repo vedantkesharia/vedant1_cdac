@@ -45,10 +45,10 @@ export const MuiNavbar = () => {
             {/* <Link to="/">Theory</Link>
           <Link to="/simulation1">Simulation</Link>
           <Link to="/test">Test</Link> */}
-            <Link className='fav ' to="/"><HomeIcon />Home</Link>
-            <Link className='fav' to="/theory"><LibraryBooksIcon />Theory</Link>
-            <Link className='fav ' to="/simulation1"><AutoAwesomeMotionIcon />Simulation</Link>
-            <Link className='fav ' to="/test"><QuizIcon />Test</Link>
+            <Link className='fav ' to="/" style={{ textDecoration: 'none' }}><HomeIcon />Home</Link>
+            <Link className='fav' to="/theory" style={{ textDecoration: 'none' }}><LibraryBooksIcon />Theory</Link>
+            <Link className='fav ' to="/simulation1" style={{ textDecoration: 'none' }}><AutoAwesomeMotionIcon />Simulation</Link>
+            <Link className='fav ' to="/test" style={{ textDecoration: 'none' }}><QuizIcon />Test</Link>
             {/* <Button
             color='inherit'
             id='resources-button'
