@@ -7,6 +7,7 @@ import Theory from './components/Theory';
 import Test from './components/Test';
 import Simulation1 from './components/Simulation1';
 import Simulation2 from './components/Simulation2';
+import Simulation3 from './components/Simulation3';
 import Theory2 from './components/Theory2';
 import Home from './components/Home';
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/theory" element={<Theory/>} />
         <Route path="/simulation1" element={<Simulation1/>} />
         <Route path="/simulation2" element={<Simulation2/>} />
+        <Route path="/simulation3" element={<Simulation3/>} />
         <Route path="/test" element={<Test/>} />
         <Route path="/theory2" element={<Theory2/>} />
 

@@ -35,10 +35,10 @@ export const MuiNavbar = () => {
           <IconButton size='large' edge='start' color='black' aria-label='logo'>
             <CatchingPokemonIcon />
           </IconButton>
-          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+          <Typography   variant='h6' component='div' sx={{ flexGrow: 1}}>
             Probability
           </Typography>
-          <Stack direction='row' sx={{ marginLeft: '20px' }} spacing={2}>
+          <Stack  direction='row' sx={{ marginLeft: '20px'}} spacing={2}>
             {/* <Button color='inherit'>Theory</Button>
           <Button color='inherit'>Simulation</Button>
           <Button color='inherit'>Quiz</Button> */}

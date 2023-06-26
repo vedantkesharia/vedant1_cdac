@@ -46,7 +46,7 @@ const Theory2 = () => {
         </CardContent> */}
         <div className="container1 ">
           <div className="question_theory">
-            Example1: What is the probability of getting a number greater than 5
+            Example 1: What is the probability of getting a number greater than 5
             ,when a fair six-sided die is rolled.
           </div>
           <br />
