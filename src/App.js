@@ -10,6 +10,7 @@ import Simulation2 from './components/Simulation2';
 import Simulation3 from './components/Simulation3';
 import Theory2 from './components/Theory2';
 import Home from './components/Home';
+import Quiz from './components/Quiz.js';
 
 // import About from './components/About';
 // import MuiNavbar from './components/Navbar.js';
@@ -36,7 +37,7 @@ function App() {
         <Route path="/simulation1" element={<Simulation1/>} />
         <Route path="/simulation2" element={<Simulation2/>} />
         <Route path="/simulation3" element={<Simulation3/>} />
-        <Route path="/test" element={<Test/>} />
+        <Route path="/test" element={<Quiz/>} />
         <Route path="/theory2" element={<Theory2/>} />
 
         {/* <Route path="/" element={<Theory/>} /> */}
