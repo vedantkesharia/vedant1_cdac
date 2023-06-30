@@ -183,7 +183,7 @@ const Theory = () => {
                 <Fade bottom>
                 <div className='flex justify-center mb-3'>
                     
-                    <a href="/theory2" class="next" onClick={handleExample}>Next &raquo;</a>
+                    <a href="/theory2" className="next" onClick={handleExample}>Next &raquo;</a>
                     
                 </div>
                 </Fade>

@@ -237,7 +237,7 @@ const Theory2 = () => {
       </Fade>
 
       <div className="flex justify-center mb-3">
-        <a class="next" onClick={handleSimulation1}>
+        <a className="next" onClick={handleSimulation1}>
           Simulation &raquo;
         </a>
       </div>

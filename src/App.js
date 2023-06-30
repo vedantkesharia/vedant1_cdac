@@ -4,7 +4,7 @@
 import MuiNavbar from './components/Navbar.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Theory from './components/Theory';
-import Test from './components/Test';
+// import Test from './components/Test';
 import Simulation1 from './components/Simulation1';
 import Simulation2 from './components/Simulation2';
 import Simulation3 from './components/Simulation3';

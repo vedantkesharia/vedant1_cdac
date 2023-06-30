@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Card, CardContent, CardActions, Typography, Button } from '@mui/material';
+import { Card, CardContent, CardActions, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Plot from 'react-plotly.js';
 
 const Simulation3 = () => {
@@ -35,7 +35,7 @@ const Simulation3 = () => {
 
         diceRef.current.style.animation = 'none';
         resolve();
-      }, 4000); // Keep the dice rolling time at 4 seconds
+      }, 1800); // Keep the dice rolling time at 4 seconds
     });
   };
 
@@ -61,10 +61,19 @@ const Simulation3 = () => {
     setCumulativeCounts(outcomeCounts);
     setIsGenerated(true);
 
-    for (let i = 0; i < rolledOutcomes.length; i++) {
-      await rollDice(rolledOutcomes[i]);
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Adjust the timeout duration here (in milliseconds)
+    if (rollCount !== 50 && rollCount !== 500) {
+      for (let i = 0; i < rolledOutcomes.length; i++) {
+        await rollDice(rolledOutcomes[i]);
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Adjust the timeout duration here (in milliseconds)
+      }
     }
+  };
+
+  const resetSimulation = () => {
+    setNumRolls(0);
+    setOutcomes([]);
+    setCumulativeCounts(Array(6).fill(0));
+    setIsGenerated(false);
   };
 
   const theoreticalProbabilities = Array(6).fill(1 / 6);
@@ -117,16 +126,29 @@ const Simulation3 = () => {
             marginBottom: '12px',
           }}
         >
-          <button className="roll" onClick={() => handleGenerate(1)}>
-            Roll Dice
-          </button>
+          {/* <br />
+          <br />
+          <br /> */}
+          <Button sx={{ backgroundColor: '#DC4C64', '&:hover': {
+      backgroundColor: 'rgb(85, 33, 138)',
+    },marginTop:'35px' }} variant="contained" onClick={resetSimulation}>
+            Reset
+          </Button>
         </CardActions>
       </Card>
 
       <div className="dice-simulation">
         <div className="input-container">
-          <label style={{ margin: '10px 10px 10px 85px', border: '1px solid black', padding: '15px',fontFamily:'Baloo Bhai 2',fontWeight:'bold' }}>
-            Number of Rolls : {numRolls}
+          <label
+            style={{
+              margin: '10px 10px 10px 85px',
+              border: '1px solid black',
+              padding: '15px',
+              fontFamily: 'Baloo Bhai 2',
+              fontWeight: 'bold',
+            }}
+          >
+            Number of Rolls: {numRolls}
           </label>
         </div>
         <div className="roll-buttons">
@@ -150,8 +172,42 @@ const Simulation3 = () => {
           </Button>
         </div>
         {isGenerated && (
-          <div className="plot-container">
-            <Plot data={plotData} layout={plotLayout} />
+          <div className="result-container">
+            <div className="plot-container">
+              <Plot data={plotData} layout={plotLayout} />
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <Typography variant="h4" sx={{ margin: 'auto', textAlign: 'center', justifyContent: 'center' }}>
+              Data In Tabular Form
+            </Typography>
+            <div
+              className="table-container"
+              style={{ width: '600px', height: '400px', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}
+            >
+              <TableContainer sx={{ border: '1px solid black' }}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ borderRight: '1px solid black' }}>Outcome</TableCell>
+                      <TableCell sx={{ borderLeft: '1px solid black', borderRight: '1px solid black' }}>Count</TableCell>
+                      <TableCell>Probability</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {cumulativeCounts.map((count, index) => (
+                      <TableRow key={index} sx={{ borderBottom: '1px solid black' }}>
+                        <TableCell sx={{ borderRight: '1px solid black' }}>{index + 1}</TableCell>
+                        <TableCell sx={{ borderLeft: '1px solid black', borderRight: '1px solid black' }}>{count}</TableCell>
+                        <TableCell>{(count / numRolls).toFixed(2)}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
           </div>
         )}
       </div>
@@ -160,6 +216,10 @@ const Simulation3 = () => {
 };
 
 export default Simulation3;
+
+
+
+
 
 
 
