@@ -5,6 +5,7 @@ import Plot from 'react-plotly.js';
 const Simulation3 = () => {
   const diceRef = useRef(null);
 
+  
   const rollDice = (random) => {
     return new Promise((resolve) => {
       diceRef.current.style.animation = 'rolling 4s';
