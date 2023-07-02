@@ -104,7 +104,7 @@ const Simulation3 = () => {
           maxWidth: 345,
           marginTop: '46px',
           marginLeft: '30px',
-          border: '1px solid black', // Added border style
+          // border: '1px solid black', // Added border style
           borderBottomColor: 'white',
           marginBottom: '15px',
         }}
