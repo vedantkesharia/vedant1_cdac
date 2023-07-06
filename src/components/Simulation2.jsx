@@ -4,7 +4,6 @@ import Plot from 'react-plotly.js';
 
 const Simulation3 = () => {
   const diceRef = useRef(null);
-
   const rollDice = (random) => {
     diceRef.current.style.animation = 'rolling 4s';
 
@@ -104,7 +103,6 @@ const Simulation3 = () => {
           </button>
         </CardActions>
       </Card>
-
       <div className="dice-simulation">
         <div className="input-container">
           <label>Number of Rolls:</label>

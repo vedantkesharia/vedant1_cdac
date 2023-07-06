@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   Card,
   CardContent,
-  CardActions,
   Typography,
   Button,
   Table,
@@ -11,7 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Alert,
+  CardActions
 } from "@mui/material";
 import Plot from "react-plotly.js";
 
@@ -78,7 +77,7 @@ const Simulation3 = () => {
         await rollDice(outcome);
         await new Promise((resolve) => setTimeout(resolve, 325));
       } else if (rollCount === 1 && rollCount === 5) {
-        await new Promise((resolve) => setTimeout(resolve, 200)); // Add a gap of 0.2 seconds before updating the graph for 50 and 500 times rolls
+        await new Promise((resolve) => setTimeout(resolve, 200));
       }
       setOutcomes((prevOutcomes) => [...prevOutcomes, outcome]);
       setNumRolls(i);
@@ -132,21 +131,31 @@ const Simulation3 = () => {
   return (
     <div>
       {showAlert && (
-        <Alert severity="info" onClose={() => setShowAlert(false)}>
-          Step {step}: Roll{" "}
-          {step === 1
-            ? "1 time"
-            : step === 2
-            ? "5 times"
-            : step === 3
-            ? "50 times"
-            : "500 times"}
-        </Alert>
+        <Card
+          variant="outlined"
+          style={{
+            margin: "20px",
+            backgroundColor: "#F3F7FA",
+          }}
+        >
+          <CardContent>
+            <Typography variant="subtitle1" color="textSecondary">
+              Step {step}: Roll{" "}
+              {step === 1
+                ? "1 time"
+                : step === 2
+                ? "5 times"
+                : step === 3
+                ? "50 times"
+                : "500 times"}
+            </Typography>
+          </CardContent>
+        </Card>
       )}
       <Card
         sx={{
           maxWidth: 345,
-          marginTop: "46px",
+          marginTop: "30px",
           marginLeft: "30px",
           borderBottomColor: "white",
           marginBottom: "15px",
@@ -189,7 +198,7 @@ const Simulation3 = () => {
       </Card>
 
       <div className="dice-simulation">
-        <div className="input-container">
+      <div className="input-container">
           <label
             style={{
               margin: "10px 10px 10px 85px",
@@ -220,7 +229,7 @@ const Simulation3 = () => {
               color="secondary"
               onClick={() => handleGenerate(5)}
             >
-              Roll 5 Times
+             Roll 5 Times
             </Button>
           )}
           {step === 3 && (
@@ -321,6 +330,13 @@ const Simulation3 = () => {
 };
 
 export default Simulation3;
+
+
+
+
+
+
+
 
 // import React, { useState, useRef } from 'react';
 // import { Card, CardContent, CardActions, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
