@@ -1,42 +1,60 @@
-import React, { useState, useRef } from 'react';
-import { Card, CardContent, CardActions, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import Plot from 'react-plotly.js';
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Alert,
+} from "@mui/material";
+import Plot from "react-plotly.js";
 
 const Simulation3 = () => {
   const diceRef = useRef(null);
+  const [step, setStep] = useState(1);
+  const [showAlert, setShowAlert] = useState(false);
 
-  
+  useEffect(() => {
+    setShowAlert(true);
+  }, []);
+
   const rollDice = (random) => {
     return new Promise((resolve) => {
-      diceRef.current.style.animation = 'rolling 4s';
+      diceRef.current.style.animation = "rolling 4s";
 
       setTimeout(() => {
         switch (random) {
           case 1:
-            diceRef.current.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            diceRef.current.style.transform = "rotateX(0deg) rotateY(0deg)";
             break;
           case 6:
-            diceRef.current.style.transform = 'rotateX(180deg) rotateY(0deg)';
+            diceRef.current.style.transform = "rotateX(180deg) rotateY(0deg)";
             break;
           case 2:
-            diceRef.current.style.transform = 'rotateX(-90deg) rotateY(0deg)';
+            diceRef.current.style.transform = "rotateX(-90deg) rotateY(0deg)";
             break;
           case 5:
-            diceRef.current.style.transform = 'rotateX(90deg) rotateY(0deg)';
+            diceRef.current.style.transform = "rotateX(90deg) rotateY(0deg)";
             break;
           case 3:
-            diceRef.current.style.transform = 'rotateX(0deg) rotateY(90deg)';
+            diceRef.current.style.transform = "rotateX(0deg) rotateY(90deg)";
             break;
           case 4:
-            diceRef.current.style.transform = 'rotateX(0deg) rotateY(-90deg)';
+            diceRef.current.style.transform = "rotateX(0deg) rotateY(-90deg)";
             break;
           default:
             break;
         }
 
-        diceRef.current.style.animation = 'none';
+        diceRef.current.style.animation = "none";
         resolve();
-      }, 1800); // Keep the dice rolling time at 4 seconds
+      }, 1800);
     });
   };
 
@@ -47,69 +65,94 @@ const Simulation3 = () => {
 
   const handleGenerate = async (rollCount) => {
     const rolls = numRolls + rollCount;
-  
+
     const outcomeCounts = [...cumulativeCounts];
     const rolledOutcomes = [];
-  
+
     for (let i = numRolls + 1; i <= rolls; i++) {
       const outcome = Math.floor(Math.random() * 6) + 1;
       rolledOutcomes.push(outcome);
       outcomeCounts[outcome - 1]++;
-  
+
       if (rollCount !== 50 && rollCount !== 500) {
         await rollDice(outcome);
-        await new Promise((resolve) => setTimeout(resolve, 325)); // Adjust the timeout duration here (in milliseconds)(gap between dice and graph output)
-      } else {
+        await new Promise((resolve) => setTimeout(resolve, 325));
+      } else if (rollCount === 1 && rollCount === 5) {
         await new Promise((resolve) => setTimeout(resolve, 200)); // Add a gap of 0.2 seconds before updating the graph for 50 and 500 times rolls
       }
-  
       setOutcomes((prevOutcomes) => [...prevOutcomes, outcome]);
       setNumRolls(i);
       setCumulativeCounts(outcomeCounts);
       setIsGenerated(true);
-  
-      // Add a gap of 0.2 seconds before updating the graph
-      // gap between the graph and the next iteration
-      await new Promise((resolve) => setTimeout(resolve, 200));
+
+      if (rollCount !== 50 && rollCount !== 500) {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
     }
+
+    setStep(step + 1); // Move to the next step
   };
-  
+
   const resetSimulation = () => {
     setNumRolls(0);
     setOutcomes([]);
     setCumulativeCounts(Array(6).fill(0));
     setIsGenerated(false);
+    setStep(1);
   };
 
   const theoreticalProbabilities = Array(6).fill(1 / 6);
 
-  const cumulativeProbabilities = cumulativeCounts.map((count) => (count / numRolls).toFixed(3));
+  const cumulativeProbabilities = cumulativeCounts.map((count) =>
+    (count / numRolls).toFixed(3)
+  );
 
   const plotData = [
-    { x: ['1', '2', '3', '4', '5', '6'], y: cumulativeProbabilities, type: 'bar', name: 'Cumulative Probabilities' },
-    { x: ['1', '2', '3', '4', '5', '6'], y: theoreticalProbabilities, type: 'bar', name: 'Theoretical Probabilities' },
+    {
+      x: ["1", "2", "3", "4", "5", "6"],
+      y: cumulativeProbabilities,
+      type: "bar",
+      name: "Cumulative Probabilities",
+    },
+    {
+      x: ["1", "2", "3", "4", "5", "6"],
+      y: theoreticalProbabilities,
+      type: "bar",
+      name: "Theoretical Probabilities",
+    },
   ];
 
   const plotLayout = {
-    title: 'Dice Roll Probabilities',
-    barmode: 'group',
-    xaxis: { title: 'Outcome' },
-    yaxis: { title: 'Probability' },
+    title: "Dice Roll Probabilities",
+    barmode: "group",
+    xaxis: { title: "Outcome" },
+    yaxis: { title: "Probability" },
   };
 
   return (
     <div>
+      {showAlert && (
+        <Alert severity="info" onClose={() => setShowAlert(false)}>
+          Step {step}: Roll{" "}
+          {step === 1
+            ? "1 time"
+            : step === 2
+            ? "5 times"
+            : step === 3
+            ? "50 times"
+            : "500 times"}
+        </Alert>
+      )}
       <Card
         sx={{
           maxWidth: 345,
-          marginTop: '46px',
-          marginLeft: '30px',
-          // border: '1px solid black', // Added border style
-          borderBottomColor: 'white',
-          marginBottom: '15px',
+          marginTop: "46px",
+          marginLeft: "30px",
+          borderBottomColor: "white",
+          marginBottom: "15px",
         }}
       >
-        <CardContent sx={{ marginTop: '20px', marginLeft: '25px' }}>
+        <CardContent sx={{ marginTop: "20px", marginLeft: "25px" }}>
           <Typography variant="body2">
             <div className="dicdediv">
               <div className="dice" ref={diceRef}>
@@ -125,13 +168,21 @@ const Simulation3 = () => {
         </CardContent>
         <CardActions
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '12px',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginBottom: "12px",
           }}
         >
-          <Button sx={{ backgroundColor: '#DC4C64', '&:hover': { backgroundColor: 'rgb(85, 33, 138)' }, marginTop: '35px' }} variant="contained" onClick={resetSimulation}>
+          <Button
+            sx={{
+              backgroundColor: "#DC4C64",
+              "&:hover": { backgroundColor: "rgb(85, 33, 138)" },
+              marginTop: "35px",
+            }}
+            variant="contained"
+            onClick={resetSimulation}
+          >
             Reset
           </Button>
         </CardActions>
@@ -141,35 +192,57 @@ const Simulation3 = () => {
         <div className="input-container">
           <label
             style={{
-              margin: '10px 10px 10px 85px',
-              border: '1px solid black',
-              padding: '15px',
-              fontFamily: 'Baloo Bhai 2',
-              fontWeight: 'bold',
+              margin: "10px 10px 10px 85px",
+              border: "1px solid black",
+              padding: "15px",
+              fontFamily: "Baloo Bhai 2",
+              fontWeight: "bold",
             }}
           >
             Number of Rolls: {numRolls}
           </label>
         </div>
         <div className="roll-buttons">
-          <Button sx={{ margin: '10px' }} variant="contained" color="secondary" onClick={() => handleGenerate(1)}>
-            Roll 1 Time
-          </Button>
-          <Button sx={{ margin: '10px' }} variant="contained" color="secondary" onClick={() => handleGenerate(5)}>
-            Roll 5 Times
-          </Button>
-          <Button sx={{ margin: '10px' }} variant="contained" color="secondary" onClick={() => handleGenerate(50)}>
-            Roll 50 Times
-          </Button>
-          <br />
-          <Button
-            sx={{ margin: '10px 10px 10px 140px' }}
-            variant="contained"
-            color="secondary"
-            onClick={() => handleGenerate(500)}
-          >
-            Roll 500 Times
-          </Button>
+          {step === 1 && (
+            <Button
+              sx={{ margin: "10px" }}
+              variant="contained"
+              color="secondary"
+              onClick={() => handleGenerate(1)}
+            >
+              Roll 1 Time
+            </Button>
+          )}
+          {step === 2 && (
+            <Button
+              sx={{ margin: "10px" }}
+              variant="contained"
+              color="secondary"
+              onClick={() => handleGenerate(5)}
+            >
+              Roll 5 Times
+            </Button>
+          )}
+          {step === 3 && (
+            <Button
+              sx={{ margin: "10px" }}
+              variant="contained"
+              color="secondary"
+              onClick={() => handleGenerate(50)}
+            >
+              Roll 50 Times
+            </Button>
+          )}
+          {step === 4 && (
+            <Button
+              sx={{ margin: "10px" }}
+              variant="contained"
+              color="secondary"
+              onClick={() => handleGenerate(500)}
+            >
+              Roll 500 Times
+            </Button>
+          )}
         </div>
         {isGenerated && (
           <div className="result-container">
@@ -180,30 +253,60 @@ const Simulation3 = () => {
             <br />
             <br />
             <br />
-            <Typography variant="h4" sx={{ margin: 'auto', textAlign: 'center', justifyContent: 'center' }}>
+            <Typography
+              variant="h4"
+              sx={{
+                margin: "auto",
+                textAlign: "center",
+                justifyContent: "center",
+              }}
+            >
               Data In Tabular Form
             </Typography>
             <div
               className="table-container"
-              style={{ width: '600px', height: '400px', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}
+              style={{
+                width: "600px",
+                height: "400px",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "auto",
+              }}
             >
-              <TableContainer sx={{ border: '1px solid black' }}>
+              <TableContainer sx={{ border: "1px solid black" }}>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ borderRight: '1px solid black' }}>Outcome</TableCell>
-                      <TableCell sx={{ borderRight: '1px solid black' }}>Count</TableCell>
-                      <TableCell sx={{ borderRight: '1px solid black' }}>Probability</TableCell>
+                      <TableCell sx={{ borderRight: "1px solid black" }}>
+                        Outcome
+                      </TableCell>
+                      <TableCell sx={{ borderRight: "1px solid black" }}>
+                        Count
+                      </TableCell>
+                      <TableCell sx={{ borderRight: "1px solid black" }}>
+                        Probability
+                      </TableCell>
                       <TableCell>Theoretical Probability</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {cumulativeCounts.map((count, index) => (
-                      <TableRow key={index} sx={{ borderBottom: '1px solid black' }}>
-                        <TableCell sx={{ borderRight: '1px solid black' }}>{index + 1}</TableCell>
-                        <TableCell sx={{ borderRight: '1px solid black' }}>{count}</TableCell>
-                        <TableCell sx={{ borderRight: '1px solid black' }}>{(count / numRolls).toFixed(2)}</TableCell>
-                        <TableCell>{theoreticalProbabilities[index].toFixed(2)}</TableCell>
+                      <TableRow
+                        key={index}
+                        sx={{ borderBottom: "1px solid black" }}
+                      >
+                        <TableCell sx={{ borderRight: "1px solid black" }}>
+                          {index + 1}
+                        </TableCell>
+                        <TableCell sx={{ borderRight: "1px solid black" }}>
+                          {count}
+                        </TableCell>
+                        <TableCell sx={{ borderRight: "1px solid black" }}>
+                          {(count / numRolls).toFixed(2)}
+                        </TableCell>
+                        <TableCell>
+                          {theoreticalProbabilities[index].toFixed(2)}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -218,10 +321,6 @@ const Simulation3 = () => {
 };
 
 export default Simulation3;
-
-
-
-
 
 // import React, { useState, useRef } from 'react';
 // import { Card, CardContent, CardActions, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
@@ -271,33 +370,32 @@ export default Simulation3;
 
 //   const handleGenerate = async (rollCount) => {
 //     const rolls = numRolls + rollCount;
-  
+
 //     const outcomeCounts = [...cumulativeCounts];
 //     const rolledOutcomes = [];
-  
+
 //     for (let i = numRolls + 1; i <= rolls; i++) {
 //       const outcome = Math.floor(Math.random() * 6) + 1;
 //       rolledOutcomes.push(outcome);
 //       outcomeCounts[outcome - 1]++;
-  
+
 //       if (rollCount !== 50 && rollCount !== 500) {
 //         await rollDice(outcome);
 //         await new Promise((resolve) => setTimeout(resolve, 500)); // Adjust the timeout duration here (in milliseconds)
 //       } else {
 //         await rollDice(outcome);
 //       }
-  
+
 //       setOutcomes((prevOutcomes) => [...prevOutcomes, outcome]);
 //       setNumRolls(i);
 //       setCumulativeCounts(outcomeCounts);
 //       setIsGenerated(true);
-  
+
 //       // Add a gap of 0.2 seconds before updating the graph
 //       //gap between the graph and the next iteration
 //       await new Promise((resolve) => setTimeout(resolve, 500));
 //     }
 //   };
-  
 
 //   // const handleGenerate = async (rollCount) => {
 //   //   const rolls = numRolls + rollCount;
@@ -315,7 +413,7 @@ export default Simulation3;
 
 //   //     await rollDice(outcome);
 
-//   //     if (rollCount !== 50 && rollCount !== 500) 
+//   //     if (rollCount !== 50 && rollCount !== 500)
 //   //     {
 //   //       await new Promise((resolve) => setTimeout(resolve, rollGapDuration));
 //   //     }
@@ -328,7 +426,7 @@ export default Simulation3;
 //   //     if (rollCount === 5) {
 //   //       await new Promise((resolve) => setTimeout(resolve, totalRollDuration+200));
 //   //     }
-    
+
 //   //   }
 //   // };
 
@@ -469,9 +567,6 @@ export default Simulation3;
 // };
 
 // export default Simulation3;
-
-
-
 
 // import React, { useState, useRef } from 'react';
 // import { Card, CardContent, CardActions, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
@@ -690,9 +785,6 @@ export default Simulation3;
 
 // export default Simulation3;
 
-
-
-
 // import React, { useState, useRef } from 'react';
 // import { Card, CardContent, CardActions, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 // import Plot from 'react-plotly.js';
@@ -906,19 +998,6 @@ export default Simulation3;
 // };
 
 // export default Simulation3;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useState, useRef } from 'react';
 // import { Card, CardContent, CardActions, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
@@ -1139,30 +1218,6 @@ export default Simulation3;
 
 // export default Simulation3;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState, useRef } from 'react';
 // import { Card, CardContent, CardActions, Typography } from '@mui/material';
 // import Plot from 'react-plotly.js';
@@ -1300,7 +1355,6 @@ export default Simulation3;
 // };
 
 // export default Simulation3;
-
 
 // import React, { useState, useRef } from 'react';
 // import { Card, CardContent, CardActions, Typography } from '@mui/material';
