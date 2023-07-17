@@ -17,11 +17,13 @@ import Plot from "react-plotly.js";
 const Simulation3 = () => {
   const diceRef = useRef(null);
   const [step, setStep] = useState(1);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
-    setShowAlert(true);
-  }, []);
+    if (step === 5) {
+      setShowAlert(false);
+    }
+  }, [step]);
 
   const rollDice = (random) => {
     return new Promise((resolve) => {
@@ -61,6 +63,7 @@ const Simulation3 = () => {
   const [outcomes, setOutcomes] = useState([]);
   const [cumulativeCounts, setCumulativeCounts] = useState(Array(6).fill(0));
   const [isGenerated, setIsGenerated] = useState(false);
+  const [isSimulationComplete, setIsSimulationComplete] = useState(false);
 
   const handleGenerate = async (rollCount) => {
     const rolls = numRolls + rollCount;
@@ -89,6 +92,10 @@ const Simulation3 = () => {
       }
     }
 
+    if (step === 4) {
+      setIsSimulationComplete(true);
+    }
+
     setStep(step + 1); // Move to the next step
   };
 
@@ -97,7 +104,9 @@ const Simulation3 = () => {
     setOutcomes([]);
     setCumulativeCounts(Array(6).fill(0));
     setIsGenerated(false);
+    setIsSimulationComplete(false);
     setStep(1);
+    setShowAlert(true);
   };
 
   const theoreticalProbabilities = Array(6).fill(1 / 6);
@@ -198,7 +207,7 @@ const Simulation3 = () => {
       </Card>
 
       <div className="dice-simulation">
-      <div className="input-container">
+        <div className="input-container">
           <label
             style={{
               margin: "10px 10px 10px 85px",
@@ -212,45 +221,88 @@ const Simulation3 = () => {
           </label>
         </div>
         <div className="roll-buttons">
-          {step === 1 && (
-            <Button
-              sx={{ margin: "10px" }}
-              variant="contained"
-              color="secondary"
-              onClick={() => handleGenerate(1)}
-            >
-              Roll 1 Time
-            </Button>
-          )}
-          {step === 2 && (
-            <Button
-              sx={{ margin: "10px" }}
-              variant="contained"
-              color="secondary"
-              onClick={() => handleGenerate(5)}
-            >
-             Roll 5 Times
-            </Button>
-          )}
-          {step === 3 && (
-            <Button
-              sx={{ margin: "10px" }}
-              variant="contained"
-              color="secondary"
-              onClick={() => handleGenerate(50)}
-            >
-              Roll 50 Times
-            </Button>
-          )}
-          {step === 4 && (
-            <Button
-              sx={{ margin: "10px" }}
-              variant="contained"
-              color="secondary"
-              onClick={() => handleGenerate(500)}
-            >
-              Roll 500 Times
-            </Button>
+          {isSimulationComplete ? (
+            <>
+              <div>
+                <Button
+                  sx={{ margin: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGenerate(1)}
+                >
+                  Roll 1 Time
+                </Button>
+                <Button
+                  sx={{ margin: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGenerate(5)}
+                >
+                  Roll 5 Times
+                </Button>
+              </div>
+              <div>
+                <Button
+                  sx={{ margin: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGenerate(50)}
+                >
+                  Roll 50 Times
+                </Button>
+                <Button
+                  sx={{ margin: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGenerate(500)}
+                >
+                  Roll 500 Times
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              {step === 1 && (
+                <Button
+                  sx={{ margin: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGenerate(1)}
+                >
+                  Roll 1 Time
+                </Button>
+              )}
+              {step === 2 && (
+                <Button
+                  sx={{ margin: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGenerate(5)}
+                >
+                  Roll 5 Times
+                </Button>
+              )}
+              {step === 3 && (
+                <Button
+                  sx={{ margin: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGenerate(50)}
+                >
+                  Roll 50 Times
+                </Button>
+              )}
+              {step === 4 && (
+                <Button
+                  sx={{ margin: "10px" }}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGenerate(500)}
+                >
+                  Roll 500 Times
+                </Button>
+              )}
+            </>
           )}
         </div>
         {isGenerated && (
@@ -330,6 +382,12 @@ const Simulation3 = () => {
 };
 
 export default Simulation3;
+
+
+
+
+
+
 
 
 
