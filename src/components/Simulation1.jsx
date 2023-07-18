@@ -6,7 +6,7 @@ function Simulation1() {
   let navigate = useNavigate();
 
   const handleStartSimulation = () => {
-    navigate('/simulation3');
+    navigate('/simulation2');
   };
   const [cardVisible, setCardVisible] = useState(false);
 
