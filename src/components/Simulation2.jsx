@@ -154,7 +154,7 @@ const gotosimulation3 = () =>{
           }}
         >
           <CardContent>
-            <Typography variant="subtitle1" color="textSecondary">
+            {/* <Typography variant="subtitle1" color="textSecondary">
               Step {step}: Roll{" "}
               {step === 1
                 ? "1 time"
@@ -163,6 +163,16 @@ const gotosimulation3 = () =>{
                 : step === 3
                 ? "50 times"
                 : "500 times"}
+            </Typography> */}
+            <Typography variant="subtitle1" color="textSecondary">
+              Step {step}: {" "}
+              {step === 1
+                ? "Click on the Roll Dice button to initiate the simulation for one dice roll."
+                : step === 2
+                ? "Roll 5 times.Notice how the experimental probabilities in the graph and table change with each additional dice roll."
+                : step === 3
+                ? "Roll 50 times.Compare the experimental probabilities in the graph and table with the theoretical probabilities "
+                : "Roll 500 times.Observe how the experimental probabilities tend to approach the theoretical probabilities "}
             </Typography>
           </CardContent>
         </Card>
