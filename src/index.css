@@ -1113,3 +1113,24 @@ background-attachment:fixed;
       margin-left: 15%;
     }
   } */
+
+  /* media queries */
+  @media (max-width: 700px) {
+    .nav-links {
+      display: none;
+    }
+  
+    .menu-icon {
+      display: block; 
+    }
+  }
+  
+  @media (min-width: 701px) {
+    .menu-icon {
+      display: none; 
+    }
+  
+    .nav-links {
+      display: flex;
+    }
+  }
