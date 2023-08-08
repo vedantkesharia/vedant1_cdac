@@ -16,7 +16,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
-import '../index.css'; // Import the custom CSS file
+// import '../index.css'; // Import the custom CSS file
 
 export const MuiNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);

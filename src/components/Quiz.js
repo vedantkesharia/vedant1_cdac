@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import questionsData from './QuestionsData.jsx';
-import '../index.css';
-import { Button } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import questionsData from "./QuestionsData.jsx";
+import "../index.css";
+import { Button } from "@mui/material";
 
 const Quiz = () => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -10,7 +10,9 @@ const Quiz = () => {
 
   // Shuffle function to randomize the order of questions
   const shuffleArray = (array) => {
-    let currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
 
     // While there remain elements to shuffle...
     while (currentIndex !== 0) {
@@ -58,8 +60,17 @@ const Quiz = () => {
   };
 
   return (
-    <div className="quiz-container" style={{backgroundColor: '#F0F8FF', backdropFilter: 'blur(20px)'}}>
-      <img className="p-2" src="https://cdn-icons-png.flaticon.com/512/807/807281.png" width="80px" height="80px" alt="img3" />
+    <div
+      className="quiz-container"
+      style={{ backgroundColor: "#F0F8FF", backdropFilter: "blur(20px)" }}
+    >
+      <img
+        className="p-2"
+        src="https://cdn-icons-png.flaticon.com/512/807/807281.png"
+        width="80px"
+        height="80px"
+        alt="img3"
+      />
       {randomQuestions.map((question) => (
         <div className="question-container" key={question.id}>
           <div className="question">{question.text}</div>
@@ -70,12 +81,12 @@ const Quiz = () => {
                 className={`option ${
                   showResults &&
                   option.id === question.correctAnswerId &&
-                  'correct'
+                  "correct"
                 } ${
                   showResults &&
                   option.id === selectedAnswers[question.id] &&
                   option.id !== question.correctAnswerId &&
-                  'incorrect'
+                  "incorrect"
                 }`}
               >
                 <input
@@ -93,7 +104,7 @@ const Quiz = () => {
             <div className="answer-explanation">
               {selectedAnswers[question.id] !== question.correctAnswerId && (
                 <div className="explanation incorrect-answer">
-                  The correct answer is:{' '}
+                  The correct answer is:{" "}
                   {
                     question.options.find(
                       (option) => option.id === question.correctAnswerId
@@ -110,7 +121,11 @@ const Quiz = () => {
       ))}
       <div className="button-container">
         {!showResults && (
-          <Button variant="contained" onClick={handleSubmit} disabled={!Object.keys(selectedAnswers).length}>
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            disabled={!Object.keys(selectedAnswers).length}
+          >
             Submit
           </Button>
         )}
@@ -125,8 +140,6 @@ const Quiz = () => {
 };
 
 export default Quiz;
-
-
 
 // import React, { useState } from 'react';
 // import questionsData from './QuestionsData.jsx';

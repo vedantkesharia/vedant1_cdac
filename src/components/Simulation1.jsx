@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import {Tilt} from 'react-tilt';
+import { Card } from "@mui/material";
 import { Flip } from "react-reveal";
 function Simulation1() {
   let navigate = useNavigate();
@@ -18,7 +19,7 @@ function Simulation1() {
   }, []);
 
   return (
-    <div
+    <Card
       style={{
         backgroundColor: "#F0F8FF",
         backdropFilter: "blur(20px)",
@@ -33,15 +34,17 @@ function Simulation1() {
         <div
           className={`simulation-card ${cardVisible ? "slide-in" : ""}`}
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.25)",
+            // backgroundColor: "rgba(255, 255, 255, 0.25)",
+            backgroundColor: "white",
             backdropFilter: "blur(5px)",
             boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
             border: "1px solid rgba(255, 255, 255, 0.18)",
             borderRadius: "16px",
             padding: "32px",
             maxWidth: "600px",
-            height: "450px",
-            width: "100%",
+            maxHeight:'80%',
+            // height: "450px",
+            width: "90%",
           }}
         >
           <h1
@@ -83,10 +86,11 @@ function Simulation1() {
             onClick={handleStartSimulation}
             style={{
               backgroundColor: "#cb55e0",
-              position: "fixed",
-              marginBottom: "45px",
+              // position: "fixed",
+              // marginBottom: "100px",
               marginLeft: "238px",
               alignItems: "center",
+              marginTop:'20px',
               justifyContent: "center",
               color: "white",
               borderRadius: "8px",
@@ -103,7 +107,7 @@ function Simulation1() {
         </div>
         {/* </Tilt> */}
       </Flip>
-    </div>
+    </Card>
   );
 }
 
