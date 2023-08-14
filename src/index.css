@@ -488,7 +488,8 @@ a:hover {
 } */
 
 .start_button:hover {
-  background-color: rgb(219, 19, 129);
+  background-color: rgb(241, 24, 205) !important;
+  border: 1.3px solid black  !important;
 }
 
 /* .simu1_card{
