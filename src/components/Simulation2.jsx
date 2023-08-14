@@ -170,15 +170,15 @@ const gotosimulation3 = () =>{
                 ? "50 times"
                 : "500 times"}
             </Typography> */}
-            <Typography variant="subtitle1" color="textSecondary">
+            <Typography variant="subtitle1" color="black" style={{fontWeight:'bold',fontSize:'18px'}}>
               Step {step}: {" "}
               {step === 1
                 ? "Click on the Roll Dice button to initiate the simulation for one dice roll."
                 : step === 2
                 ? "Roll 5 times.Notice how the experimental probabilities in the graph and table change with each additional dice roll."
                 : step === 3
-                ? "Roll 50 times.Compare the experimental probabilities in the graph and table with the theoretical probabilities "
-                : "Roll 500 times.Observe how the experimental probabilities tend to approach the theoretical probabilities "}
+                ? "Roll 50 times.Compare the experimental probabilities in the graph and table with the theoretical probabilities."
+                : "Roll 500 times.Observe how the experimental probabilities tend to approach the theoretical probabilities."}
             </Typography>
           </CardContent>
         </Card>
@@ -288,7 +288,7 @@ const gotosimulation3 = () =>{
               {step === 1 && (
                  
                 <Button
-                  sx={{ marginLeft:'145px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-8px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(1)}
@@ -300,7 +300,7 @@ const gotosimulation3 = () =>{
               {step === 2 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-8px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(5)}
@@ -311,7 +311,7 @@ const gotosimulation3 = () =>{
               {step === 3 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-8px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(50)}
@@ -322,7 +322,7 @@ const gotosimulation3 = () =>{
               {step === 4 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-8px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(500)}
