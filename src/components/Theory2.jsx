@@ -28,22 +28,7 @@ const Theory2 = () => {
           borderBottomRightRadius: "20px",
         }}
       >
-        {/* <CardContent>
-          <Typography
-            gutterBottom
-            variant="h4"
-            component="div"
-            sx={{
-              // display: "flex",
-              // alignItems: "center",
-              // justifyContent: "center",
-              // borderBottom: "1px solid #0C2D48",
-              // padding: "10px",
-              fontWeight: "1000",
-              fontFamily: "Poppins",
-            }}
-          ></Typography>
-        </CardContent> */}
+
         <div className="container1 ">
           <div className="question_theory">
             Example 1: What is the probability of getting a number greater than 5
@@ -60,9 +45,7 @@ const Theory2 = () => {
             <img className="solution1" src={solution2} alt="" />
           </div>
         </div>
-        {/* <div className='img1'>
-                    <img src={probability_formula} alt="" />
-                </div> */}
+
       </Card>
       </Fade>
 

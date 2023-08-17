@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 
+
 .text2_teams{
   /* align-items: center; */
   height:80px;
@@ -236,6 +237,7 @@ li:hover {
   margin-top: 32px;
   margin-bottom:-160px;
   }
+
 }
 
 
