@@ -12,11 +12,7 @@ import Theory2 from './components/Theory2';
 import Home from './components/Home';
 import Quiz from './components/Quiz.js';
 
-// import About from './components/About';
-// import MuiNavbar from './components/Navbar.js';
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Theory from './components/Theory';
-// import Test from './components/Test';
+
 
 
 
