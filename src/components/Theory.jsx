@@ -21,11 +21,6 @@ const Theory = () => {
         navigate('/theory2');
     }
 
-    // const handleStartSimulation =() =>{
-    //     navigate('/simulation1');
-    // }
-
-
     return (
         <>
             {/* <div className='theory_page bg-sky-200 top-5' style={mystyle}> */}
@@ -82,49 +77,6 @@ const Theory = () => {
                         </div>
                     </Card>
                 </Fade>
-
-                {/* 
-                <Card
-                    sx={{
-                        border: "1px solid #0C2D48",
-                        margin: "50px",
-                        backgroundColor: "#B1D4E0",
-                        boxShadow: "2px 5px 10px 2px grey",
-                       
-                    }}
-                >
-                <CardContent>
-                    <Typography
-                        gutterBottom
-                        variant='h4'
-                        component="div"
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderBottom: "1px solid #0C2D48",
-                            padding: "10px",
-                            fontWeight: "1000",
-                            fontFamily: 'Open Sans',
-                        }}
-                    >
-                        Theorem
-                    </Typography>
-                    <Typography
-                        sx={{
-                            fontSize: "18px",
-                            fontWeight: "600",
-                            fontFamily: 'Open Sans',
-                        }}
-                    >
-                        Basic Proportionality theorem was introduced by a famous Greek Mathematician, Thales, hence it is also called Thales Theorem. According to him, for any two equiangular triangles, the ratio of any two corresponding sides is always the same. Based on this concept, he gave theorem of basic proportionality (BPT). This concept has been introduced in similar triangles.  If two triangles are similar to each other then,
-                        <ol type='i' style={{ marginTop: "15px" }}>
-                            <li>Corresponding angles of both the triangles are equal</li>
-                            <li>Corresponding sides of both the triangles are in proportion to each other</li>
-                        </ol>
-                    </Typography>
-                </CardContent>
-            </Card> */}
 
                 <Fade left>
                     <Card
