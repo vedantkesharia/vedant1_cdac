@@ -288,7 +288,7 @@ const gotosimulation3 = () =>{
               {step === 1 && (
                  
                 <Button
-                  sx={{ marginLeft:'145px',marginTop:'-12px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-15px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(1)}
@@ -300,7 +300,7 @@ const gotosimulation3 = () =>{
               {step === 2 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px',marginTop:'-12px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-15px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(5)}
@@ -311,7 +311,7 @@ const gotosimulation3 = () =>{
               {step === 3 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px',marginTop:'-12px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-15px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(50)}
@@ -322,7 +322,7 @@ const gotosimulation3 = () =>{
               {step === 4 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px',marginTop:'-12px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-15px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(500)}
