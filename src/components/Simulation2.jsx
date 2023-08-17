@@ -170,7 +170,7 @@ const gotosimulation3 = () =>{
                 ? "50 times"
                 : "500 times"}
             </Typography> */}
-            <Typography variant="subtitle1" color="black" style={{fontWeight:'bold',fontSize:'18px'}}>
+            <Typography variant="subtitle1" color="black" style={{fontWeight:'bold',fontSize:'20px'}}>
               Step {step}: {" "}
               {step === 1
                 ? "Click on the Roll Dice button to initiate the simulation for one dice roll."
@@ -288,7 +288,7 @@ const gotosimulation3 = () =>{
               {step === 1 && (
                  
                 <Button
-                  sx={{ marginLeft:'145px',marginTop:'-8px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-12px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(1)}
@@ -300,7 +300,7 @@ const gotosimulation3 = () =>{
               {step === 2 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px',marginTop:'-8px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-12px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(5)}
@@ -311,7 +311,7 @@ const gotosimulation3 = () =>{
               {step === 3 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px',marginTop:'-8px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-12px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(50)}
@@ -322,7 +322,7 @@ const gotosimulation3 = () =>{
               {step === 4 && (
                 <Button
                   // sx={{ margin: "10px" }}
-                  sx={{ marginLeft:'145px',marginTop:'-8px' }}
+                  sx={{ marginLeft:'145px',marginTop:'-12px' }}
                   variant="contained"
                   color="secondary"
                   onClick={() => handleGenerate(500)}
