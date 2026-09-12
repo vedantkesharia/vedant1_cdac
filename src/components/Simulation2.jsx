@@ -15,6 +15,10 @@ import {
 } from "@mui/material";
 import Plot from "react-plotly.js";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
+import {
+  createDiceOutcomes,
+  summarizeDiceOutcomes,
+} from "./simulationMetrics";
 
 const Simulation2 = () => {
   let navigate = useNavigate();
@@ -72,21 +76,19 @@ const gotosimulation3 = () =>{
 }
 
   const [numRolls, setNumRolls] = useState(0);
-  const [outcomes, setOutcomes] = useState([]);
   const [cumulativeCounts, setCumulativeCounts] = useState(Array(6).fill(0));
   const [isGenerated, setIsGenerated] = useState(false);
   const [isSimulationComplete, setIsSimulationComplete] = useState(false);
 
   const handleGenerate = async (rollCount) => {
-    const rolls = numRolls + rollCount;
+    let outcomeCounts = [...cumulativeCounts];
+    const rolledOutcomes = createDiceOutcomes(rollCount);
 
-    const outcomeCounts = [...cumulativeCounts];
-    const rolledOutcomes = [];
-
-    for (let i = numRolls + 1; i <= rolls; i++) {
-      const outcome = Math.floor(Math.random() * 6) + 1;
-      rolledOutcomes.push(outcome);
-      outcomeCounts[outcome - 1]++;
+    for (let index = 0; index < rolledOutcomes.length; index += 1) {
+      const i = numRolls + index + 1;
+      const outcome = rolledOutcomes[index];
+      const updatedSummary = summarizeDiceOutcomes([outcome], outcomeCounts, i);
+      outcomeCounts = updatedSummary.counts;
 
       if (rollCount !== 50 && rollCount !== 500) {
         await rollDice(outcome);
@@ -94,9 +96,8 @@ const gotosimulation3 = () =>{
       } else if (rollCount === 1 && rollCount === 5) {
         await new Promise((resolve) => setTimeout(resolve, 200));
       }
-      setOutcomes((prevOutcomes) => [...prevOutcomes, outcome]);
       setNumRolls(i);
-      setCumulativeCounts(outcomeCounts);
+      setCumulativeCounts(updatedSummary.counts);
       setIsGenerated(true);
 
       if (rollCount !== 50 && rollCount !== 500) {
@@ -113,7 +114,6 @@ const gotosimulation3 = () =>{
 
   const resetSimulation = () => {
     setNumRolls(0);
-    setOutcomes([]);
     setCumulativeCounts(Array(6).fill(0));
     setIsGenerated(false);
     setIsSimulationComplete(false);
